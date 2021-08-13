@@ -13,6 +13,7 @@ struct ContentView: View {
     // @State is a property wrapper recommended for simple properties that exist
     // in only one view so we add the private access modifier
     @State private var tapCount = 0
+    @State private var name = ""
     
     var body: some View {
         
@@ -29,9 +30,9 @@ struct ContentView: View {
                 
                 // We cannot add more than 10 elements to each group
                 Group {
-                    Text("Hello, world!").padding()
-                    Text("Hello, world!").padding()
-                    Text("Hello, world!").padding()
+                    // $ symbol signifies 2 way binding
+                    TextField("Enter your name", text: $name).padding()
+                    Text("Your name is: \(name)").padding()
                 }
                 
                 // A section behaves like a group but with added visual seperation
