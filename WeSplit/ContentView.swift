@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var tapCount = 0
     @State private var name = ""
     
+    let students = ["Ron", "Harry", "Hermione"]
+    @State private var selectedStudent = 0
+    
     var body: some View {
         
         // Navigation view stops elements from scrolling behind system ui (clock, etc)
@@ -33,6 +36,19 @@ struct ContentView: View {
                     // $ symbol signifies 2 way binding
                     TextField("Enter your name", text: $name).padding()
                     Text("Your name is: \(name)").padding()
+                }
+                
+                Section {
+                    VStack {
+                        Picker("Select your student", selection: $selectedStudent) {
+                            ForEach(0..<students.count) {
+                                Text(self.students[$0])
+                            }
+                        }
+                        .padding()
+                        
+                        Text("You chose: \(students[selectedStudent])").padding()
+                    }
                 }
                 
                 // A section behaves like a group but with added visual seperation
