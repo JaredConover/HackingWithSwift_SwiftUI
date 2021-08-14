@@ -15,6 +15,15 @@ struct ContentView: View {
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
+    // This is a computed property
+    var totalPerPerson: Double {
+        let peopleCount = Double(numberOfPeople + 2)
+        let tipPercentage = Double(tipPercentages[tipPercentage])
+        let baseAmount = Double(checkAmount) ?? 0
+        
+        return ((tipPercentage / baseAmount * 100) + baseAmount ) / peopleCount
+    }
+    
     var body: some View {
         
         NavigationView {
@@ -43,7 +52,7 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text("$\(checkAmount)").padding()
+                    Text("$\(totalPerPerson)").padding()
                 }
             }
             // This title is associated to the form instead of the navigation view because the navigation view may need to display titles for may different views
