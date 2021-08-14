@@ -19,9 +19,13 @@ struct ContentView: View {
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
         let tipPercentage = Double(tipPercentages[tipPercentage])
-        let baseAmount = Double(checkAmount) ?? 0
+        let baseAmount = Double(checkAmount) ?? 0.0
         
-        return ((tipPercentage / baseAmount * 100) + baseAmount ) / peopleCount
+        let tipAmount = baseAmount / 100 * tipPercentage
+        let grandTotal = tipAmount + baseAmount
+               
+        return grandTotal / peopleCount
+//        return (( baseAmount / 100 * tipPercentage) + baseAmount ) / peopleCount
     }
     
     var body: some View {
@@ -52,7 +56,7 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text("$\(totalPerPerson)").padding()
+                    Text("$\(totalPerPerson, specifier: "%.2f")").padding()
                 }
             }
             // This title is associated to the form instead of the navigation view because the navigation view may need to display titles for may different views
