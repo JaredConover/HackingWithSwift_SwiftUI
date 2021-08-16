@@ -25,7 +25,7 @@ struct ContentView: View {
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
         return totalWithTip / peopleCount
-//        return (( baseAmount / 100 * tipPercentage) + baseAmount ) / peopleCount
+        //        return (( baseAmount / 100 * tipPercentage) + baseAmount ) / peopleCount
     }
     
     var body: some View {
@@ -36,6 +36,11 @@ struct ContentView: View {
                     TextField("Amount", text: $checkAmount).padding()
                         .keyboardType(.decimalPad)
                     
+//                    Button("Submit") {
+//                        print("Tip: \(tipAmount)")
+//                        hideKeyboard()
+//                    }
+                    
                     // Inside of a form the picker needs to be nested in a navigation view
                     // or SwiftUI wont be able to create the screen of options
                     Picker("Number of people", selection: $numberOfPeople) {
@@ -44,6 +49,7 @@ struct ContentView: View {
                         }
                     }
                     .padding()
+            
                 }
                 
                 Section(header: Text("How much tip do you want to leave?")) {
@@ -69,10 +75,19 @@ struct ContentView: View {
     }
 }
 
+// This is for hiding the keyboard, but I cant find a place to call it
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            
-            
+        
+        
     }
 }
