@@ -15,16 +15,16 @@ struct ContentView: View {
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
+    var totalWithTip: Double {
+        let baseAmount = Double(checkAmount) ?? 0
+        let tipPercentage = Double(tipPercentages[tipPercentage])
+        return (baseAmount / 100 * tipPercentage) + baseAmount
+    }
+    
     // This is a computed property
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
-        let tipPercentage = Double(tipPercentages[tipPercentage])
-        let baseAmount = Double(checkAmount) ?? 0.0
-        
-        let tipAmount = baseAmount / 100 * tipPercentage
-        let grandTotal = tipAmount + baseAmount
-               
-        return grandTotal / peopleCount
+        return totalWithTip / peopleCount
 //        return (( baseAmount / 100 * tipPercentage) + baseAmount ) / peopleCount
     }
     
@@ -55,8 +55,12 @@ struct ContentView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section {
-                    Text("$\(totalPerPerson, specifier: "%.2f")").padding()
+                Section(header: Text("Total amount with tip")) {
+                    Text("$\(totalWithTip, specifier: "%.2f")")
+                }
+                
+                Section(header: Text("Amount per person")) {
+                    Text("$\(totalPerPerson, specifier: "%.2f")")
                 }
             }
             // This title is associated to the form instead of the navigation view because the navigation view may need to display titles for may different views
@@ -68,8 +72,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .previewDevice("iPhone SE (2nd generation)")
-            .previewLayout(.device)
-            .preferredColorScheme(.dark)
+            
+            
     }
 }
