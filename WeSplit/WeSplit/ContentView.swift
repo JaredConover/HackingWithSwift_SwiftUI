@@ -75,7 +75,7 @@ struct ContentView: View {
     }
 }
 
-// This is for hiding the keyboard, but I cant find a place to call it
+// This is for hiding the keyboard, but I cant find a place to call itx
 #if canImport(UIKit)
 extension View {
     func hideKeyboard() {
